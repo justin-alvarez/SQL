@@ -1,0 +1,41 @@
+--Create a online store database
+CREATE TABLE inventory (
+    id INT PRIMARY KEY,
+    name TEXT,
+    category TEXT,
+    price DECIMAL(10, 2),
+    stock INT
+);
+
+INSERT INTO inventory (id, name, category, price, stock) VALUES
+    (1, 'Smartphone X', 'Smartphone', 699.99, 25),
+    (2, 'Smartwatch Pro', 'Smartwatch', 199.99, 50),
+    (3, 'Wireless Earbuds', 'Headphones', 99.99, 75),
+    (4, 'VR Headset Deluxe', 'Accessories', 299.99, 15),
+    (5, 'Laptop UltraBook', 'Laptop', 1299.99, 10),
+    (6, 'Drone Explorer', 'Drone', 349.99, 30),
+    (7, 'Fitness Tracker Plus', 'Wearable', 79.99, 40),
+    (8, 'Bluetooth Speaker', 'Speakers', 49.99, 60),
+    (9, 'Action Camera HD', 'Cameras', 199.99, 20),
+    (10, 'Smart Home Hub', 'Smart Home', 149.99, 10),
+    (11, 'Gaming Console Elite', 'Gaming', 499.99, 5),
+    (12, 'E-Reader Pro', 'E-Readers', 129.99, 30),
+    (13, 'Wireless Charger', 'Accessories', 29.99, 100),
+    (14, 'Noise-Canceling Headphones', 'Headphones', 149.99, 50),
+    (15, 'Portable Monitor', 'Accessories', 199.99, 15);
+
+
+
+-- Selecting items and ordering by price in descending order
+SELECT id, name, category, price, stock FROM inventory ORDER BY price DESC;
+
+
+
+-- Calculating the average price of items listed in store
+SELECT AVG(price) AS average_price FROM inventory;
+
+
+-- Selecting category count
+SELECT category, COUNT(*) AS item_count
+FROM inventory
+GROUP BY category;
