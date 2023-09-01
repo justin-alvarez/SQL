@@ -1,0 +1,48 @@
+--Actors
+
+CREATE TABLE actors (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT,
+    age INTEGER,
+    nationality TEXT
+);
+
+INSERT INTO actors (fullname, age, nationality) VALUES
+    ('Leonardo DiCaprio', 48, 'US'),
+    ('Dwayne Johnson', 51, 'US'),
+    ('Denzel Washington', 68, 'US'),
+    ('Jennifer Lawrence', 33, 'US' ), 
+    ('Margot Robbie', 33, 'AU' );
+   
+--Show actors table
+SELECT * FROM actors;
+    
+
+CREATE TABLE movies (
+    actor_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    movie TEXT,
+    year_released INTEGER
+);
+
+
+INSERT INTO movies (actor_id, movie, year_released) VALUES
+    (1, 'Wolf of Wallstreet', 2013),
+    (2, 'Fast and Furious', 2009),
+    (3, 'The Equalizer', 2014),
+    (4, 'The Hunger Games', 2012),
+    (5, 'Focus', 2015);
+    
+--Show movies table
+
+SELECT * FROM movies;
+
+
+--Show actors next to their movies
+
+SELECT actors.fullname, movies.movie, movies.year_released
+
+FROM actors 
+
+JOIN movies 
+
+ON actors.id = movies.actor_id;
