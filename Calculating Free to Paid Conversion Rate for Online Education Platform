@@ -1,0 +1,29 @@
+select
+-- conversion rate
+ROUND(COUNT(first_date_purchased ) / COUNT(first_date_watched),
+            2) * 100  AS conversion_rate,
+-- avg days between a student's registration and their first content watch
+ROUND(SUM(days_diff_reg_watch) / COUNT(days_diff_reg_watch),
+            2) AS av_reg_watch,
+-- avg number of days between a student's first content watch and their first purchase
+ROUND(SUM(days_diff_watch_purch) / COUNT(days_diff_watch_purch),
+            2) AS av_watch_purch
+-- subquery 
+From(
+	select 
+		a.student_id, 
+		a.date_registered, 
+		min(b.date_watched) as first_date_watched, 
+		min(c.date_purchased) as first_date_purchased,
+		datediff(a.date_registered, MIN(b.date_watched)) as days_diff_reg_watch,
+		datediff(MIN(b.date_watched), MIN(c.date_purchased)) as days_diff_watch_purch
+	from 
+    db_course_conversions.student_info as a
+	left join 
+    db_course_conversions.student_engagement as b
+	on a.student_id = b.student_id
+	left join db_course_conversions.student_purchases as c
+	on b.student_id = c.student_id
+	group by a.student_id
+	having  first_date_watched <= first_date_purchased OR first_date_purchased IS NULL  
+) as s;            
